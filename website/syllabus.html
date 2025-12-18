@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus & Resources - CS 182/282A</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .syllabus-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        .syllabus-table th,
+        .syllabus-table td {
+            border: 1px solid var(--border-color, #ddd);
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .syllabus-table th {
+            background: var(--primary-color, #003262);
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        .syllabus-table tr:nth-child(even) {
+            background: var(--card-bg, #f9f9f9);
+        }
+        .syllabus-table tr:hover {
+            background: var(--hover-bg, #e8f4f8);
+        }
+        .week-num {
+            font-weight: bold;
+            text-align: center;
+            width: 50px;
+        }
+        .date-col {
+            width: 80px;
+            white-space: nowrap;
+        }
+        .resources-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .resources-list li {
+            margin: 4px 0;
+        }
+        .resources-list a {
+            color: var(--link-color, #003262);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .resources-list a:hover {
+            text-decoration: underline;
+        }
+        .pdf-icon::before {
+            content: "📄";
+        }
+        .code-icon::before {
+            content: "💻";
+        }
+        .video-icon::before {
+            content: "🎥";
+        }
+        .holiday {
+            background: #fff3cd !important;
+            color: #856404;
+        }
+        .section-header {
+            margin: 3rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color, #003262);
+        }
+        .resource-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin: 2px;
+        }
+        .badge-lecture { background: #e3f2fd; color: #1565c0; }
+        .badge-hw { background: #e8f5e9; color: #2e7d32; }
+        .badge-discussion { background: #fff3e0; color: #ef6c00; }
+        .badge-solution { background: #fce4ec; color: #c2185b; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">CS 182/282A Deep Learning</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse All</a>
+            <a href="syllabus.html" class="active">Syllabus</a>
+            <a href="insights.html">Insights</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>📚 Course Syllabus & Resources</h1>
+        <p>All lecture slides, homework assignments, solutions, and discussion materials for CS 182/282A Fall 2025.</p>
+
+        <table class="syllabus-table">
+            <thead>
+                <tr>
+                    <th>W</th>
+                    <th>Date</th>
+                    <th>Lecture Topic</th>
+                    <th>Resources</th>
+                    <th>Discussion</th>
+                    <th>Homework</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Week 0 -->
+                <tr>
+                    <td class="week-num">0</td>
+                    <td class="date-col">Aug 28</td>
+                    <td>Introduction/Administrivia</td>
+                    <td>
+                        <em>No slides (intro lecture)</em>
+                    </td>
+                    <td><em>No Discussion</em></td>
+                    <td>
+                        <strong>HW0 - Basics</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW00/hw00_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW00/hw0codesolution.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <!-- Week 1 -->
+                <tr>
+                    <td class="week-num" rowspan="2">1</td>
+                    <td class="date-col">Sep 2</td>
+                    <td>Basic Principles</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_01/Lecture1Sahai.pdf" class="pdf-icon">Lecture 1 (Sahai)</a></li>
+                            <li><a href="resources/lectures/Lec_01/Lecture1Ranade.pdf" class="pdf-icon">Lecture 1 (Ranade)</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis01_solution.pdf" class="pdf-icon">Dis 1: SGD and MLP</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW1</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW01/hw01_question.pdf" class="pdf-icon">Questions</a></li>
+                            <li><a href="resources/homework/HW01/hw01_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW01/hw01codesolution.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Sep 4</td>
+                    <td>Optimization: implicit regularization, SGD, and momentum</td>
+                </tr>
+                <!-- Week 2 -->
+                <tr>
+                    <td class="week-num" rowspan="2">2</td>
+                    <td class="date-col">Sep 9</td>
+                    <td>Optimization: Adam, locally linear perspective</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_02-03_SGD_Momentum_Adam/Lecture 2 1.pdf" class="pdf-icon">Lecture 2</a></li>
+                            <li><a href="resources/lectures/Lec_02-03_SGD_Momentum_Adam/Lecture 3.pdf" class="pdf-icon">Lecture 3</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis02_question.pdf" class="pdf-icon">Dis 2 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis02_solution.pdf" class="pdf-icon">Dis 2 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW2</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW02/hw02_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW02/hw02_solutions_coding.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Sep 11</td>
+                    <td>Optimizers</td>
+                </tr>
+                <!-- Week 3 -->
+                <tr>
+                    <td class="week-num" rowspan="2">3</td>
+                    <td class="date-col">Sep 16</td>
+                    <td>Optimizers: insights from induced matrix norms</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_04-05_Initialization_Shampoo/Lecture 4.pdf" class="pdf-icon">Lecture 4</a></li>
+                            <li><a href="resources/lectures/Lec_04-05_Initialization_Shampoo/Lecture 5.pdf" class="pdf-icon">Lecture 5</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis03_question.pdf" class="pdf-icon">Dis 3 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis03_solution.pdf" class="pdf-icon">Dis 3 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW3</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW03/hw03_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW03/q_mup_coding_sol.ipynb" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Sep 18</td>
+                    <td>muP: maximal update parameterization</td>
+                </tr>
+                <!-- Week 4 -->
+                <tr>
+                    <td class="week-num" rowspan="2">4</td>
+                    <td class="date-col">Sep 23</td>
+                    <td>Optimizers: MuON</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_06-07_Muon_muP/Lecture 6.pdf" class="pdf-icon">Lecture 6</a></li>
+                            <li><a href="resources/lectures/Lec_06-07_Muon_muP/Lecture 7.pdf" class="pdf-icon">Lecture 7</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis04_question.pdf" class="pdf-icon">Dis 4 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis04_solution.pdf" class="pdf-icon">Dis 4 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW4</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW04/hw04_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW04/edge_detection_sol.ipynb" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Sep 25</td>
+                    <td>Conv-nets: basics</td>
+                </tr>
+                <!-- Week 5 -->
+                <tr>
+                    <td class="week-num" rowspan="2">5</td>
+                    <td class="date-col">Sep 30</td>
+                    <td>Pooling, Data Augmentation, Normalization</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_08-09_CNN_basics/Lecture 8.pdf" class="pdf-icon">Lecture 8</a></li>
+                            <li><a href="resources/lectures/Lec_08-09_CNN_basics/Lecture 9.pdf" class="pdf-icon">Lecture 9</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis05_question.pdf" class="pdf-icon">Dis 5 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis05_solution.pdf" class="pdf-icon">Dis 5 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW5</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW05/hw05_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW05/q_coding_bn_drop_cnn_sol.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Oct 2</td>
+                    <td>Normalization, Dropout, ResNets</td>
+                </tr>
+                <!-- Week 6 -->
+                <tr>
+                    <td class="week-num" rowspan="2">6</td>
+                    <td class="date-col">Oct 7</td>
+                    <td>ResNets, FCN, U-nets</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_10_Norm_Dropout_Residual/Lecture 10.pdf" class="pdf-icon">Lecture 10</a></li>
+                            <li><a href="resources/lectures/Lec_11_Resnets_pooling/Lecture 11.pdf" class="pdf-icon">Lecture 11</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis06_question.pdf" class="pdf-icon">Dis 6 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis06_solution.pdf" class="pdf-icon">Dis 6 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW6</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW06/hw06_question.pdf" class="pdf-icon">Questions</a></li>
+                            <li><a href="resources/homework/HW06/hw06_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW06/hw06codesolution.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Oct 9</td>
+                    <td>Graph Neural Nets</td>
+                </tr>
+                <!-- Week 7 -->
+                <tr>
+                    <td class="week-num" rowspan="2">7</td>
+                    <td class="date-col">Oct 14</td>
+                    <td>DiffPool, GNNs, RNNs</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_12_GNN_intro/Lecture 12.pdf" class="pdf-icon">Lecture 12</a></li>
+                            <li><a href="resources/lectures/Lec_13_GNN_DiffPool/Lecture 13.pdf" class="pdf-icon">Lecture 13</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis07_question.pdf" class="pdf-icon">Dis 7 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis07_solution.pdf" class="pdf-icon">Dis 7 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW7</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW07/hw07_question.pdf" class="pdf-icon">Questions</a></li>
+                            <li><a href="resources/homework/HW07/hw07_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW07/hw07codesolution.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Oct 16</td>
+                    <td>RNNs and Self-Supervision</td>
+                </tr>
+                <!-- Week 8 -->
+                <tr>
+                    <td class="week-num" rowspan="2">8</td>
+                    <td class="date-col">Oct 21</td>
+                    <td>Self-Supervision, State-Space Models</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_14_RNNs_self_supervision/Lecture 14.pdf" class="pdf-icon">Lecture 14</a></li>
+                            <li><a href="resources/lectures/Lec_15_self_supervision/Lecture 15Sahai.pdf" class="pdf-icon">Lecture 15</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis08_question.pdf" class="pdf-icon">Dis 8 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis08_solution.pdf" class="pdf-icon">Dis 8 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW8</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW08/hw08_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW08/q_coding_ssm_forward_cpu_sol.ipynb" class="code-icon">Code (CPU)</a></li>
+                            <li><a href="resources/homework/HW08/q_coding_ssm_forward_gpu_sol.ipynb" class="code-icon">Code (GPU)</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Oct 23</td>
+                    <td>Finish State-Space Models</td>
+                </tr>
+                <!-- Week 9 -->
+                <tr>
+                    <td class="week-num" rowspan="2">9</td>
+                    <td class="date-col">Oct 28</td>
+                    <td>Attention and Transformers</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_15-18_SSMs_Mamba_Attention/Lecture 16.pdf" class="pdf-icon">Lecture 16</a></li>
+                            <li><a href="resources/lectures/Lec_15-18_SSMs_Mamba_Attention/Lecture 17.pdf" class="pdf-icon">Lecture 17</a></li>
+                            <li><a href="resources/lectures/Lec_15-18_SSMs_Mamba_Attention/Lecture 18.pdf" class="pdf-icon">Lecture 18</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis09_question.pdf" class="pdf-icon">Dis 9 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis09_solution.pdf" class="pdf-icon">Dis 9 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW9</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW09/hw09_question.pdf" class="pdf-icon">Questions</a></li>
+                            <li><a href="resources/homework/HW09/hw09_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW09/hw09codesolution.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Oct 30</td>
+                    <td>Transformers</td>
+                </tr>
+                <!-- Week 10 -->
+                <tr>
+                    <td class="week-num" rowspan="2">10</td>
+                    <td class="date-col">Nov 4</td>
+                    <td>Finish Transformers</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_15-18_SSMs_Mamba_Attention/Lecture 19.pdf" class="pdf-icon">Lecture 19</a></li>
+                            <li><a href="resources/lectures/Lec_15-18_SSMs_Mamba_Attention/Lecture 20.pdf" class="pdf-icon">Lecture 20</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis10_question.pdf" class="pdf-icon">Dis 10 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis10_solution.pdf" class="pdf-icon">Dis 10 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW10</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW10/hw10_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW10/q_hand_transformer_sol.ipynb" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Nov 6</td>
+                    <td>ICL, prompting, PEFT, LoRA</td>
+                </tr>
+                <!-- Week 11 -->
+                <tr class="holiday">
+                    <td class="week-num" rowspan="2">11</td>
+                    <td class="date-col">Nov 11</td>
+                    <td><em>Veterans Day Holiday</em></td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_21_ICL_finetuning/Lecture 21.pdf" class="pdf-icon">Lecture 21</a></li>
+                            <li><a href="resources/lectures/Lec_21_ICL_finetuning/Lecture 22.pdf" class="pdf-icon">Lecture 22</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis11_question.pdf" class="pdf-icon">Dis 11 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis11_solution.pdf" class="pdf-icon">Dis 11 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW11</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW11/hw11_question.pdf" class="pdf-icon">Questions</a></li>
+                            <li><a href="resources/homework/HW11/hw11_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW11/hw11codesolution.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Nov 13</td>
+                    <td>PEFT and Transfer Learning</td>
+                </tr>
+                <!-- Week 12 -->
+                <tr>
+                    <td class="week-num" rowspan="2">12</td>
+                    <td class="date-col">Nov 18</td>
+                    <td>Meta-Learning</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_23_Meta_Learning/Lecture 23.pdf" class="pdf-icon">Lecture 23</a></li>
+                            <li><a href="resources/lectures/Lec_24_VAE_test_time/Lecture 24.pdf" class="pdf-icon">Lecture 24</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis12_question.pdf" class="pdf-icon">Dis 12 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis12_solution.pdf" class="pdf-icon">Dis 12 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW12</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW12/hw12_question.pdf" class="pdf-icon">Questions</a></li>
+                            <li><a href="resources/homework/HW12/hw12_solution.pdf" class="pdf-icon">Solution</a></li>
+                            <li><a href="resources/homework/HW12/q_vae_sol.zip" class="code-icon">Code</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-col">Nov 20</td>
+                    <td>Generative Models (VAE)</td>
+                </tr>
+                <!-- Week 13 -->
+                <tr class="holiday">
+                    <td class="week-num" rowspan="2">13</td>
+                    <td class="date-col">Nov 25</td>
+                    <td>Post-training</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_25_RLVR/Lecture 25.pdf" class="pdf-icon">Lecture 25</a></li>
+                            <li><a href="resources/lectures/Lec_26_RLHF_DPO_diffusion/Lecture 26.pdf" class="pdf-icon">Lecture 26</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/discussions/Discussion/dis13_question.pdf" class="pdf-icon">Dis 13 Questions</a></li>
+                            <li><a href="resources/discussions/Discussion/dis13_solution.pdf" class="pdf-icon">Dis 13 Solution</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2">
+                        <strong>HW13</strong>
+                        <ul class="resources-list">
+                            <li><a href="resources/homework/HW13/hw13_question.pdf" class="pdf-icon">Questions</a></li>
+                            <li><a href="resources/homework/HW13/hw13_solution.pdf" class="pdf-icon">Solution</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="holiday">
+                    <td class="date-col">Nov 27</td>
+                    <td><em>Thanksgiving Holiday</em></td>
+                </tr>
+                <!-- Week 14 -->
+                <tr>
+                    <td class="week-num" rowspan="2">14</td>
+                    <td class="date-col">Dec 2</td>
+                    <td>Generative Models (Diffusion)</td>
+                    <td rowspan="2">
+                        <ul class="resources-list">
+                            <li><a href="resources/lectures/Lec_27_DDPM_DDIM/Lecture 27.pdf" class="pdf-icon">Lecture 27</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="2"><em>-</em></td>
+                    <td rowspan="2"><em>HW14 (if any)</em></td>
+                </tr>
+                <tr>
+                    <td class="date-col">Dec 4</td>
+                    <td>Generative Models</td>
+                </tr>
+                <!-- Week 15 -->
+                <tr>
+                    <td class="week-num" rowspan="2">15</td>
+                    <td class="date-col">Dec 9</td>
+                    <td><em>RRR Week</em></td>
+                    <td rowspan="2"><em>-</em></td>
+                    <td rowspan="2"><em>-</em></td>
+                    <td rowspan="2"><em>-</em></td>
+                </tr>
+                <tr>
+                    <td class="date-col">Dec 11</td>
+                    <td><em>RRR Week</em></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="section-header">📋 Quick Links</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div class="card">
+                <h3>📄 All Lectures</h3>
+                <a href="resources/lectures/">Browse all lecture slides</a>
+            </div>
+            <div class="card">
+                <h3>📝 All Homework</h3>
+                <a href="resources/homework/">Browse all homework</a>
+            </div>
+            <div class="card">
+                <h3>💬 All Discussions</h3>
+                <a href="resources/discussions/">Browse all discussions</a>
+            </div>
+            <div class="card">
+                <h3>📚 Project Info</h3>
+                <a href="resources/other/Project_Details/">View project details</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>CS 182/282A Deep Learning - UC Berkeley Fall 2025</p>
+        <p>Blue Team Enhanced Website</p>
+    </footer>
+</body>
+</html>
