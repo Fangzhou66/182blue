@@ -77,18 +77,42 @@ h1, h2, h3, h4 {
 .site-header {
     background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a5f 100%);
     color: white;
-    padding: 2.5rem 1.5rem;
-    text-align: center;
+    padding: 1.5rem 2rem;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-badge {
+    background: rgba(253, 181, 21, 0.9);
+    color: #003262;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.header-text {
+    flex: 1;
 }
 
 .site-title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
 }
 
 .site-subtitle {
-    font-size: 1rem;
-    opacity: 0.9;
+    font-size: 0.9rem;
+    opacity: 0.85;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }

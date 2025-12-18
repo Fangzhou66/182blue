@@ -16,6 +16,7 @@ OUTPUT_FILE = "participation_a_data.json"
 WEBSITE_DATA_FILE = Path("website/data.js")
 
 # Canonical LLM name mappings for consistency
+# NOTE: Order matters! More specific patterns should come first.
 LLM_NORMALIZATION = {
     # Claude variants
     'claude sonnet 4.5': 'Claude Sonnet 4.5',
@@ -40,20 +41,52 @@ LLM_NORMALIZATION = {
     'gpt-o3': 'ChatGPT o3',
     'chatgpt.': 'ChatGPT',
 
-    # GPT 5.x variants
+    # GPT 5.1 variants - MOST SPECIFIC FIRST
     'gpt-5.1 pro': 'GPT-5.1 Pro',
     'gpt 5.1 pro': 'GPT-5.1 Pro',
     'chatgpt-5.1 pro': 'GPT-5.1 Pro',
     'chatgpt 5.1 pro': 'GPT-5.1 Pro',
-    'gpt-5.1 thinking': 'GPT-5.1 Thinking',
-    'gpt 5.1 thinking': 'GPT-5.1 Thinking',
-    'gpt 5 thinking': 'GPT-5.1 Thinking',
-    'gpt5 thinking': 'GPT-5.1 Thinking',
-    'chatgpt 5.1 thinking': 'GPT-5.1 Thinking',
+    'chatgpt 5 - pro': 'GPT-5 Pro',
+    'chatgpt 5 pro': 'GPT-5 Pro',
+    'chatgpt-5 pro': 'GPT-5 Pro',
+    'gpt 5 pro': 'GPT-5 Pro',
+    'gpt-5 pro': 'GPT-5 Pro',
+    'gpt-5.1 thinking extended': 'GPT-5.1 Extended Thinking',
+    'gpt 5.1 thinking extended': 'GPT-5.1 Extended Thinking',
+    'chatgpt 5.1 thinking extended': 'GPT-5.1 Extended Thinking',
+    'gpt-5.1 extended thinking': 'GPT-5.1 Extended Thinking',
+    'gpt 5.1 extended thinking': 'GPT-5.1 Extended Thinking',
+    'chatgpt 5.1 extended thinking': 'GPT-5.1 Extended Thinking',
     'gpt-5.1 extended': 'GPT-5.1 Extended Thinking',
     'gpt 5.1 extended': 'GPT-5.1 Extended Thinking',
     'chatgpt 5.1 extended': 'GPT-5.1 Extended Thinking',
-    'chatgpt 5.1 extended thinking': 'GPT-5.1 Extended Thinking',
+    'gpt-5.1 thinking': 'GPT-5.1 Thinking',
+    'gpt 5.1 thinking': 'GPT-5.1 Thinking',
+    'chatgpt 5.1 thinking': 'GPT-5.1 Thinking',
+    'gpt 5.1 auto': 'GPT-5.1 Auto',
+    'chatgpt 5.1 auto': 'GPT-5.1 Auto',
+    'gpt-5.1 auto': 'GPT-5.1 Auto',
+    'gpt-5.1': 'GPT-5.1',
+    'gpt 5.1': 'GPT-5.1',
+    'chatgpt-5.1': 'GPT-5.1',
+    'chatgpt 5.1': 'GPT-5.1',
+
+    # GPT 5 variants (without .1) - after 5.1 variants
+    'gpt 5 thinking': 'GPT-5 Thinking',
+    'gpt-5 thinking': 'GPT-5 Thinking',
+    'chatgpt 5 thinking': 'GPT-5 Thinking',
+    'chatgpt-5 thinking': 'GPT-5 Thinking',
+    'gpt5 thinking': 'GPT-5 Thinking',
+    'chatgpt-5 (regular)': 'GPT-5',
+    'chatgpt 5 (regular)': 'GPT-5',
+    'gpt-5 (regular)': 'GPT-5',
+    'gpt 5 (regular)': 'GPT-5',
+    'chatgpt-5 regular': 'GPT-5',
+    'chatgpt 5 regular': 'GPT-5',
+    'gpt-5 regular': 'GPT-5',
+    'gpt 5 regular': 'GPT-5',
+    'chatgpt-5': 'GPT-5',
+    'chatgpt 5': 'GPT-5',
     'gpt5': 'GPT-5',
     'gpt 5': 'GPT-5',
     'gpt-5': 'GPT-5',
@@ -134,7 +167,11 @@ LLM_PROVIDERS = {
     'GPT-4': 'OpenAI',
     'GPT-4o': 'OpenAI',
     'GPT-5': 'OpenAI',
+    'GPT-5 Pro': 'OpenAI',
+    'GPT-5 Thinking': 'OpenAI',
+    'GPT-5.1': 'OpenAI',
     'GPT-5.1 Pro': 'OpenAI',
+    'GPT-5.1 Auto': 'OpenAI',
     'GPT-5.1 Thinking': 'OpenAI',
     'GPT-5.1 Extended Thinking': 'OpenAI',
     'GPT-OSS': 'OpenAI',
@@ -272,8 +309,9 @@ def extract_llm_name(title, content):
         r'gpt[-\s]*oss[-\s]*\d+b?',
         r'GPT[-\s]*OSS[-\s]*\d+b?',
 
-        # GPT/ChatGPT with version and mode
-        r'(?:Chat)?GPT[-\s]*\d+(?:\.\d+)?\s*(?:Pro|Thinking|Extended(?:\s*Thinking)?)',
+        # GPT/ChatGPT with version and mode - capture all variants
+        r'(?:Chat)?GPT[-\s]*\d+(?:\.\d+)?\s*[-–]?\s*(?:Pro|Auto|Regular|\(Regular\)|Thinking|Extended(?:\s*Thinking)?)',
+        r'(?:Chat)?GPT[-\s]*\d+(?:\.\d+)?\s*\([^)]+\)',  # ChatGPT-5 (Regular) format
         r'(?:Chat)?GPT[-\s]*\d+(?:\.\d+)?[oO]?',
         r'ChatGPT\.?(?:\s|$)',
 
