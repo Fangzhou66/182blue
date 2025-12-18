@@ -22,6 +22,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         applyPillColors();
 
+        document.addEventListener('themechange', applyPillColors);
+
         const media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
         if (media) {
             if (typeof media.addEventListener === 'function') {
@@ -33,8 +35,7 @@
     });
 
     function applyPillColors() {
-        const isDark = window.matchMedia &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = isDarkMode();
 
         // LLM badges (Homework Submission Breakdown)
         document.querySelectorAll('.llm-badge').forEach(el => {
@@ -63,8 +64,33 @@
 
     function applyRgbToPill(el, rgb, { isDark }) {
         if (!rgb) return;
-        el.style.setProperty('--pill-rgb', rgb);
-        el.style.setProperty('--pill-fg', isDark ? rgbToCssRgb(rgb) : '#0f172a');
+        const parsed = parseRgb(rgb);
+        if (!parsed) return;
+
+        const [r, g, b] = parsed;
+        const bgAlpha = readCssNumber('--pill-alpha-bg', isDark ? 0.22 : 0.12);
+        const borderAlpha = readCssNumber('--pill-alpha-border', isDark ? 0.35 : 0.25);
+
+        const fg = isDark ? `rgb(${r}, ${g}, ${b})` : '#0f172a';
+
+        // Modern path (CSS vars) + hardened path for older browsers.
+        el.style.setProperty('--pill-rgb', `${r} ${g} ${b}`);
+        el.style.setProperty('--pill-fg', fg);
+
+        el.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${bgAlpha})`;
+        el.style.borderColor = `rgba(${r}, ${g}, ${b}, ${borderAlpha})`;
+        el.style.color = fg;
+    }
+
+    function isDarkMode() {
+        const forced = document.documentElement && document.documentElement.dataset
+            ? document.documentElement.dataset.theme
+            : null;
+
+        if (forced === 'dark') return true;
+        if (forced === 'light') return false;
+
+        return Boolean(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
 
     function extractLabel(text) {
@@ -148,6 +174,16 @@
         const parts = String(rgb).trim().split(/\s+/).slice(0, 3).map(n => Number.parseInt(n, 10));
         if (parts.length !== 3 || parts.some(n => !Number.isFinite(n))) return null;
         return parts;
+    }
+
+    function readCssNumber(name, fallback) {
+        try {
+            const raw = getComputedStyle(document.documentElement).getPropertyValue(name);
+            const value = Number.parseFloat(String(raw).trim());
+            return Number.isFinite(value) ? value : fallback;
+        } catch {
+            return fallback;
+        }
     }
 
     function rgbToCssRgb(rgb) {

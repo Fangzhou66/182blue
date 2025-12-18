@@ -8,6 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            try {
+                const theme = localStorage.getItem('extraCreditTheme');
+                if (theme === 'light' || theme === 'dark') {
+                    document.documentElement.dataset.theme = theme;
+                }
+            } catch {
+                // ignore
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,6 +39,10 @@
                     <a href="browse.html" class="nav-link">Browse</a>
                     <a href="syllabus.html" class="nav-link">Syllabus</a>
                     <a href="insights.html" class="nav-link">Insights</a>
+                    <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+                        <span class="theme-toggle-dot" aria-hidden="true"></span>
+                        <span data-theme-toggle-text>Light</span>
+                    </button>
                 </nav>
             </div>
         </header>
@@ -112,7 +128,8 @@
         </footer>
     </div>
 
+    <script src="theme.js"></script>
     <script src="data.js"></script>
     <script src="home.js"></script>
-</body>
-</html>
+ </body>
+ </html>

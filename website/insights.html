@@ -8,6 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            try {
+                const theme = localStorage.getItem('extraCreditTheme');
+                if (theme === 'light' || theme === 'dark') {
+                    document.documentElement.dataset.theme = theme;
+                }
+            } catch {
+                // ignore
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
     <style>
         .stats-grid {
@@ -52,12 +64,13 @@
             font-weight: 600;
             margin-bottom: 1rem;
         }
-        .chart-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
+	        .chart-row {
+	            display: grid;
+	            grid-template-columns: 1fr 1fr;
+	            align-items: start;
+	            gap: 1.5rem;
+	            margin-bottom: 2rem;
+	        }
         .hw-table-container {
             overflow-x: auto;
             margin-bottom: 2rem;
@@ -199,6 +212,10 @@
                     <a href="browse.html" class="nav-link">Browse</a>
                     <a href="syllabus.html" class="nav-link">Syllabus</a>
                     <a href="insights.html" class="nav-link active">Insights</a>
+                    <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+                        <span class="theme-toggle-dot" aria-hidden="true"></span>
+                        <span data-theme-toggle-text>Light</span>
+                    </button>
                 </nav>
             </div>
         </header>
@@ -230,41 +247,41 @@
             <!-- Charts -->
             <section class="insight-section">
                 <h3>LLM Usage Distribution</h3>
-                <div class="chart-container">
-                    <picture>
-                        <source srcset="chart_llm_distribution_dark.png" media="(prefers-color-scheme: dark)">
-                        <img src="chart_llm_distribution_light.png" alt="Top 10 LLMs by Submission Count" loading="lazy" decoding="async">
-                    </picture>
-                </div>
-            </section>
+	                <div class="chart-container">
+	                    <picture>
+	                        <source srcset="chart_llm_distribution_dark.png" media="(prefers-color-scheme: dark)">
+	                        <img src="chart_llm_distribution_light.png" data-theme-src-light="chart_llm_distribution_light.png" data-theme-src-dark="chart_llm_distribution_dark.png" alt="Top 10 LLMs by Submission Count" loading="lazy" decoding="async">
+	                    </picture>
+	                </div>
+	            </section>
 
             <section class="insight-section">
                 <h3>Provider & Homework Analysis</h3>
                 <div class="chart-row">
-                    <div class="chart-container">
-                        <picture>
-                            <source srcset="chart_provider_distribution_dark.png" media="(prefers-color-scheme: dark)">
-                            <img src="chart_provider_distribution_light.png" alt="Submissions by Provider" loading="lazy" decoding="async">
-                        </picture>
-                    </div>
-                    <div class="chart-container">
-                        <picture>
-                            <source srcset="chart_hw_distribution_dark.png" media="(prefers-color-scheme: dark)">
-                            <img src="chart_hw_distribution_light.png" alt="Submissions per Homework" loading="lazy" decoding="async">
-                        </picture>
-                    </div>
-                </div>
-            </section>
+	                    <div class="chart-container">
+	                        <picture>
+	                            <source srcset="chart_provider_distribution_dark.png" media="(prefers-color-scheme: dark)">
+	                            <img src="chart_provider_distribution_light.png" data-theme-src-light="chart_provider_distribution_light.png" data-theme-src-dark="chart_provider_distribution_dark.png" alt="Submissions by Provider" loading="lazy" decoding="async">
+	                        </picture>
+	                    </div>
+	                    <div class="chart-container">
+	                        <picture>
+	                            <source srcset="chart_hw_distribution_dark.png" media="(prefers-color-scheme: dark)">
+	                            <img src="chart_hw_distribution_light.png" data-theme-src-light="chart_hw_distribution_light.png" data-theme-src-dark="chart_hw_distribution_dark.png" alt="Submissions per Homework" loading="lazy" decoding="async">
+	                        </picture>
+	                    </div>
+	                </div>
+	            </section>
 
             <section class="insight-section">
                 <h3>LLM Usage by Homework Assignment</h3>
-                <div class="chart-container">
-                    <picture>
-                        <source srcset="chart_llm_by_hw_dark.png" media="(prefers-color-scheme: dark)">
-                        <img src="chart_llm_by_hw_light.png" alt="LLM Usage by Homework" loading="lazy" decoding="async">
-                    </picture>
-                </div>
-            </section>
+	                <div class="chart-container">
+	                    <picture>
+	                        <source srcset="chart_llm_by_hw_dark.png" media="(prefers-color-scheme: dark)">
+	                        <img src="chart_llm_by_hw_light.png" data-theme-src-light="chart_llm_by_hw_light.png" data-theme-src-dark="chart_llm_by_hw_dark.png" alt="LLM Usage by Homework" loading="lazy" decoding="async">
+	                    </picture>
+	                </div>
+	            </section>
 
             <!-- Homework Breakdown Table -->
             <section class="insight-section">
@@ -550,6 +567,7 @@
         </footer>
     </div>
 
+    <script src="theme.js"></script>
     <script src="insights_palette.js"></script>
     <script src="insights.js"></script>
 </body>
