@@ -94,7 +94,7 @@ window.INSIGHTS_PALETTE = {
     },
     "grok": {
       "provider": "xAI",
-      "rgb": "141 71 207"
+      "rgb": "182 59 201"
     },
     "kimi": {
       "provider": "Moonshot AI",
@@ -133,6 +133,6 @@ window.INSIGHTS_PALETTE = {
     "Other": "100 116 139",
     "Perplexity": "100 116 139",
     "Unknown": "100 116 139",
-    "xAI": "168 85 247"
+    "xAI": "217 70 239"
   }
 };

@@ -163,6 +163,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     min-height: 100vh;
+    transition: background-color 220ms ease, color 220ms ease;
 }
 
 /* Typography */
@@ -426,7 +427,7 @@ h1, h2, h3, h4 {
     text-align: center;
     border: 1px solid var(--border-color);
     animation: fadeInUp 0.5s ease-out backwards;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 220ms ease, border-color 220ms ease, color 220ms ease;
 }
 
 .stat-card:nth-child(1) { animation-delay: 0.1s; }
@@ -654,6 +655,7 @@ h1, h2, h3, h4 {
     margin-bottom: 1.5rem;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
+    transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, color 220ms ease;
 }
 
 .search-box {
@@ -668,7 +670,7 @@ h1, h2, h3, h4 {
     font-size: 0.95rem;
     background: var(--bg-color);
     color: var(--text-color);
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, background-color 220ms ease, color 220ms ease;
 }
 
 .search-input:focus {
@@ -706,6 +708,7 @@ h1, h2, h3, h4 {
     color: var(--text-color);
     font-size: 0.875rem;
     cursor: pointer;
+    transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
 }
 
 .filter-select:focus {
@@ -1152,6 +1155,7 @@ h1, h2, h3, h4 {
     padding: 1.5rem;
     text-align: center;
     margin-top: auto;
+    transition: background-color 220ms ease, color 220ms ease;
 }
 
 .site-footer p {

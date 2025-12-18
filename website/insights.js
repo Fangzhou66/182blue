@@ -8,7 +8,7 @@
         'Anthropic': '248 113 113',
         'DeepSeek': '59 130 246',
         'Mistral AI': '251 146 60',
-        'xAI': '168 85 247',
+        'xAI': '217 70 239',
         'Alibaba': '139 92 246',
         'Moonshot AI': '14 165 233',
         'Perplexity': '100 116 139',
