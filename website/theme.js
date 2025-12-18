@@ -5,8 +5,12 @@
     const STORAGE_KEY = 'extraCreditTheme';
     const THEME_LIGHT = 'light';
     const THEME_DARK = 'dark';
+    const THEME_TRANSITION_MS = 220;
 
     const media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
+    let themeTransitionTimeoutId = null;
 
     document.addEventListener('DOMContentLoaded', () => {
         // Ensure stored theme is applied (in case inline <head> script is missing).
@@ -21,13 +25,13 @@
                 // Shift-click resets to system theme.
                 if (e.shiftKey) {
                     clearStoredTheme();
-                    setTheme(null, { persist: false });
+                    setTheme(null, { persist: false, animate: true });
                     announceThemeChange();
                     return;
                 }
 
                 const next = getEffectiveTheme() === THEME_DARK ? THEME_LIGHT : THEME_DARK;
-                setTheme(next, { persist: true });
+                setTheme(next, { persist: true, animate: true });
                 announceThemeChange();
             });
         });
@@ -74,7 +78,9 @@
         return getStoredTheme() || getSystemTheme();
     }
 
-    function setTheme(theme, { persist }) {
+    function setTheme(theme, { persist = false, animate = false } = {}) {
+        if (animate) startThemeTransition();
+
         if (theme !== THEME_LIGHT && theme !== THEME_DARK) {
             document.documentElement.removeAttribute('data-theme');
             syncThemeToggleUi();
@@ -94,6 +100,21 @@
         syncThemePictures();
     }
 
+    function startThemeTransition() {
+        if (reduceMotion && reduceMotion.matches) return;
+
+        const root = document.documentElement;
+        root.classList.add('theme-transition');
+        // Ensure transition styles are applied before we flip the theme.
+        void root.offsetHeight;
+
+        if (themeTransitionTimeoutId) window.clearTimeout(themeTransitionTimeoutId);
+        themeTransitionTimeoutId = window.setTimeout(() => {
+            root.classList.remove('theme-transition');
+            themeTransitionTimeoutId = null;
+        }, THEME_TRANSITION_MS + 60);
+    }
+
     function syncThemeToggleUi() {
         const effective = getEffectiveTheme();
         const currentIsDark = effective === THEME_DARK;
@@ -108,7 +129,7 @@
 
             const dot = btn.querySelector('.theme-toggle-dot');
             if (dot) {
-                dot.style.background = currentIsDark ? 'rgba(96, 165, 250, 0.9)' : 'rgba(253, 181, 21, 0.95)';
+                dot.style.backgroundColor = currentIsDark ? 'rgba(96, 165, 250, 0.9)' : 'rgba(253, 181, 21, 0.95)';
             }
         });
     }
@@ -140,9 +161,58 @@
             }
 
             if (img.getAttribute('src') !== desired) {
-                img.setAttribute('src', desired);
+                swapThemeImage(img, desired);
             }
         });
+    }
+
+    function swapThemeImage(img, desiredSrc) {
+        if (reduceMotion && reduceMotion.matches) {
+            img.style.opacity = '';
+            img.setAttribute('src', desiredSrc);
+            return;
+        }
+
+        const swapToken = String(Date.now()) + String(Math.random());
+        img.dataset.themeSwapToken = swapToken;
+
+        const preloader = new Image();
+        preloader.onload = () => {
+            if (img.dataset.themeSwapToken !== swapToken) return;
+
+            img.style.opacity = '1';
+
+            const finishSwap = () => {
+                if (img.dataset.themeSwapToken !== swapToken) return;
+                img.setAttribute('src', desiredSrc);
+                requestAnimationFrame(() => {
+                    if (img.dataset.themeSwapToken !== swapToken) return;
+                    img.style.opacity = '1';
+                });
+            };
+
+            const onFadeOutEnd = (event) => {
+                if (event && event.propertyName && event.propertyName !== 'opacity') return;
+                img.removeEventListener('transitionend', onFadeOutEnd);
+                finishSwap();
+            };
+
+            img.addEventListener('transitionend', onFadeOutEnd);
+            img.style.opacity = '0';
+
+            window.setTimeout(() => {
+                img.removeEventListener('transitionend', onFadeOutEnd);
+                finishSwap();
+            }, THEME_TRANSITION_MS + 80);
+        };
+
+        preloader.onerror = () => {
+            if (img.dataset.themeSwapToken !== swapToken) return;
+            img.style.opacity = '';
+            img.setAttribute('src', desiredSrc);
+        };
+
+        preloader.src = desiredSrc;
     }
 
     function announceThemeChange({ dispatchOnly } = {}) {

@@ -145,6 +145,26 @@
     --pill-alpha-border: 0.35;
 }
 
+/* Theme Transition (enabled by theme.js) */
+:root.theme-transition,
+:root.theme-transition *,
+:root.theme-transition *::before,
+:root.theme-transition *::after {
+    transition: background-color 220ms ease,
+        color 220ms ease,
+        border-color 220ms ease,
+        outline-color 220ms ease,
+        box-shadow 220ms ease,
+        fill 220ms ease,
+        stroke 220ms ease,
+        opacity 220ms ease,
+        transform 220ms ease;
+}
+
+img[data-theme-src-light][data-theme-src-dark] {
+    transition: opacity 220ms ease;
+}
+
 /* Reset */
 *, *::before, *::after {
     margin: 0;
@@ -336,6 +356,7 @@ h1, h2, h3, h4 {
     height: 10px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.7);
+    transition: background-color 220ms ease;
 }
 
 /* Main Content */
