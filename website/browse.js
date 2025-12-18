@@ -34,12 +34,24 @@
         const llmSelect = document.getElementById('llmFilter');
         const hwSelect = document.getElementById('hwFilter');
 
-        // Populate providers
+        // Get counts for each filter
+        const providerCounts = {};
+        const hwCounts = {};
+        participationData.threads.forEach(t => {
+            const provider = t.provider || 'Other';
+            providerCounts[provider] = (providerCounts[provider] || 0) + 1;
+            hwCounts[t.homework] = (hwCounts[t.homework] || 0) + 1;
+        });
+
+        // Populate providers with counts, sorted by count
         if (providerSelect && typeof uniqueProviders !== 'undefined') {
-            uniqueProviders.forEach(provider => {
+            const sortedProviders = [...uniqueProviders].sort((a, b) =>
+                (providerCounts[b] || 0) - (providerCounts[a] || 0)
+            );
+            sortedProviders.forEach(provider => {
                 const opt = document.createElement('option');
                 opt.value = provider;
-                opt.textContent = provider;
+                opt.textContent = `${provider} (${providerCounts[provider] || 0})`;
                 providerSelect.appendChild(opt);
             });
         }
@@ -49,12 +61,12 @@
             updateLLMOptions();
         }
 
-        // Populate homework
+        // Populate homework with counts
         if (hwSelect) {
             uniqueHWs.forEach(hw => {
                 const opt = document.createElement('option');
                 opt.value = hw;
-                opt.textContent = hw;
+                opt.textContent = `${hw} (${hwCounts[hw] || 0})`;
                 hwSelect.appendChild(opt);
             });
         }
@@ -69,19 +81,29 @@
         // Clear existing options except "All"
         llmSelect.innerHTML = '<option value="all">All LLMs</option>';
 
+        // Get LLM counts based on current provider filter
+        const llmCounts = {};
+        participationData.threads.forEach(t => {
+            if (currentFilters.provider === 'all' || t.provider === currentFilters.provider) {
+                llmCounts[t.llm_used] = (llmCounts[t.llm_used] || 0) + 1;
+            }
+        });
+
         // Filter LLMs based on selected provider
         let llmsToShow = uniqueLLMs;
         if (currentFilters.provider !== 'all') {
-            llmsToShow = uniqueLLMs.filter(llm => {
-                const thread = participationData.threads.find(t => t.llm_used === llm);
-                return thread && thread.provider === currentFilters.provider;
-            });
+            llmsToShow = uniqueLLMs.filter(llm => llmCounts[llm] > 0);
         }
+
+        // Sort by count
+        llmsToShow = [...llmsToShow].sort((a, b) =>
+            (llmCounts[b] || 0) - (llmCounts[a] || 0)
+        );
 
         llmsToShow.forEach(llm => {
             const opt = document.createElement('option');
             opt.value = llm;
-            opt.textContent = llm;
+            opt.textContent = `${llm} (${llmCounts[llm] || 0})`;
             llmSelect.appendChild(opt);
         });
 
@@ -272,15 +294,85 @@
 
         history.replaceState(null, '', newUrl);
 
-        // Show/hide clear button
+        // Update active filters and clear button
+        const hasFilters = currentFilters.search ||
+            currentFilters.provider !== 'all' ||
+            currentFilters.llm !== 'all' ||
+            currentFilters.hw !== 'all';
+
         const clearBtn = document.getElementById('clearFilters');
         if (clearBtn) {
-            const hasFilters = currentFilters.search ||
-                currentFilters.provider !== 'all' ||
-                currentFilters.llm !== 'all' ||
-                currentFilters.hw !== 'all';
             clearBtn.style.display = hasFilters ? 'inline-block' : 'none';
         }
+
+        renderActiveFilters(hasFilters);
+    }
+
+    function renderActiveFilters(hasFilters) {
+        const container = document.getElementById('activeFilters');
+        if (!container) return;
+
+        if (!hasFilters) {
+            container.style.display = 'none';
+            return;
+        }
+
+        container.style.display = 'flex';
+        let html = '<span class="active-filters-label">Filtering by:</span>';
+
+        if (currentFilters.search) {
+            html += `<span class="filter-chip" data-filter="search">
+                <span class="chip-icon">🔍</span>"${escapeHtml(currentFilters.search)}"
+                <button class="chip-remove" data-type="search">&times;</button>
+            </span>`;
+        }
+
+        if (currentFilters.provider !== 'all') {
+            html += `<span class="filter-chip filter-chip-provider" data-filter="provider">
+                ${escapeHtml(currentFilters.provider)}
+                <button class="chip-remove" data-type="provider">&times;</button>
+            </span>`;
+        }
+
+        if (currentFilters.llm !== 'all') {
+            html += `<span class="filter-chip filter-chip-llm" data-filter="llm">
+                ${escapeHtml(currentFilters.llm)}
+                <button class="chip-remove" data-type="llm">&times;</button>
+            </span>`;
+        }
+
+        if (currentFilters.hw !== 'all') {
+            html += `<span class="filter-chip filter-chip-hw" data-filter="hw">
+                ${escapeHtml(currentFilters.hw)}
+                <button class="chip-remove" data-type="hw">&times;</button>
+            </span>`;
+        }
+
+        container.innerHTML = html;
+
+        // Add remove handlers
+        container.querySelectorAll('.chip-remove').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const type = this.dataset.type;
+                if (type === 'search') {
+                    currentFilters.search = '';
+                    document.getElementById('searchInput').value = '';
+                } else if (type === 'provider') {
+                    currentFilters.provider = 'all';
+                    document.getElementById('providerFilter').value = 'all';
+                    updateLLMOptions();
+                } else if (type === 'llm') {
+                    currentFilters.llm = 'all';
+                    document.getElementById('llmFilter').value = 'all';
+                } else if (type === 'hw') {
+                    currentFilters.hw = 'all';
+                    document.getElementById('hwFilter').value = 'all';
+                }
+                currentPage = 1;
+                applyFiltersAndRender();
+            });
+        });
     }
 
     function renderSubmissions() {
