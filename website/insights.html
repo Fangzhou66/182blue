@@ -185,10 +185,53 @@
             margin-right: 0.25rem;
         }
 
+        .theme-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            margin: 0.125rem 0.25rem 0.125rem 0;
+            white-space: nowrap;
+        }
+        .theme-badge.strength {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.25);
+            color: #4ade80;
+        }
+        .theme-badge.weakness {
+            background: rgba(248, 113, 113, 0.12);
+            border-color: rgba(248, 113, 113, 0.25);
+            color: #f87171;
+        }
+        .theme-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .themes-grid ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .themes-grid li {
+            margin-bottom: 0.5rem;
+        }
+
         @media (max-width: 1024px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .chart-row { grid-template-columns: 1fr; }
             .llm-comparison-grid { grid-template-columns: 1fr; }
+            .themes-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
             .stats-grid { grid-template-columns: 1fr; }
@@ -295,76 +338,9 @@
                                 <th>Top LLMs Used</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="hw-breakdown-body">
                             <tr>
-                                <td><strong>HW0</strong></td>
-                                <td>14</td>
-                                <td><span class="llm-badge">Grok (3)</span><span class="llm-badge">GPT-5.1 Thinking (2)</span><span class="llm-badge">Gemini Pro 3 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW1</strong></td>
-                                <td>12</td>
-                                <td><span class="llm-badge">Qwen (2)</span><span class="llm-badge">Claude Opus 4.5 (2)</span><span class="llm-badge">GPT-5.1 Thinking (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW2</strong></td>
-                                <td>10</td>
-                                <td><span class="llm-badge">Mistral (2)</span><span class="llm-badge">DeepSeek (2)</span><span class="llm-badge">Claude Opus 4.5 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW3</strong></td>
-                                <td>12</td>
-                                <td><span class="llm-badge">Mistral (3)</span><span class="llm-badge">Gemini Pro 3 (2)</span><span class="llm-badge">GPT-4o (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW4</strong></td>
-                                <td>10</td>
-                                <td><span class="llm-badge">Kimi K2 (2)</span><span class="llm-badge">GPT-5 (2)</span><span class="llm-badge">DeepSeek (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW5</strong></td>
-                                <td>13</td>
-                                <td><span class="llm-badge">Grok (3)</span><span class="llm-badge">Mistral (2)</span><span class="llm-badge">Gemini Pro 3 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW6</strong></td>
-                                <td>13</td>
-                                <td><span class="llm-badge">Claude Sonnet 4.5 (3)</span><span class="llm-badge">Gemini Pro 3 (2)</span><span class="llm-badge">Grok (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW7</strong></td>
-                                <td>13</td>
-                                <td><span class="llm-badge">DeepSeek v3.2 (2)</span><span class="llm-badge">Qwen (2)</span><span class="llm-badge">GPT-5 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW8</strong></td>
-                                <td>15</td>
-                                <td><span class="llm-badge">Mistral (3)</span><span class="llm-badge">Gemini Pro 3 (2)</span><span class="llm-badge">DeepSeek v3.2 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW9</strong></td>
-                                <td>16</td>
-                                <td><span class="llm-badge">Kimi K2 (2)</span><span class="llm-badge">DeepSeek v3.2 (2)</span><span class="llm-badge">GPT-5.1 Thinking (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW10</strong></td>
-                                <td>12</td>
-                                <td><span class="llm-badge">GPT-5.1 Thinking (2)</span><span class="llm-badge">DeepSeek v3.2 (2)</span><span class="llm-badge">GPT-5 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW11</strong></td>
-                                <td>11</td>
-                                <td><span class="llm-badge">Gemini Pro 3 (2)</span><span class="llm-badge">Grok (2)</span><span class="llm-badge">Claude Sonnet 4.5 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW12</strong></td>
-                                <td>10</td>
-                                <td><span class="llm-badge">Qwen (2)</span><span class="llm-badge">Mistral (2)</span><span class="llm-badge">Claude Opus 4.5 (2)</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HW13</strong></td>
-                                <td>7</td>
-                                <td><span class="llm-badge">GPT-4o (1)</span><span class="llm-badge">Gemini 2.5 Flash (1)</span><span class="llm-badge">Claude Opus 4.5 (1)</span></td>
+                                <td colspan="3" class="theme-meta">Loading…</td>
                             </tr>
                         </tbody>
                     </table>
@@ -384,54 +360,9 @@
                                 <th>Models Used</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="provider-breakdown-body">
                             <tr>
-                                <td><span class="provider-badge provider-openai">OpenAI</span></td>
-                                <td>46</td>
-                                <td>27.4%</td>
-                                <td>GPT-5.1 Thinking, GPT-5, GPT-4o, GPT o1/o3, ChatGPT</td>
-                            </tr>
-                            <tr>
-                                <td><span class="provider-badge provider-google">Google</span></td>
-                                <td>32</td>
-                                <td>19.0%</td>
-                                <td>Gemini Pro 3, Gemini 2.5 Flash, Gemini 2.5 Pro</td>
-                            </tr>
-                            <tr>
-                                <td><span class="provider-badge provider-anthropic">Anthropic</span></td>
-                                <td>24</td>
-                                <td>14.3%</td>
-                                <td>Claude Opus 4.5, Claude Sonnet 4.5, Claude 3.5</td>
-                            </tr>
-                            <tr>
-                                <td><span class="provider-badge provider-deepseek">DeepSeek</span></td>
-                                <td>19</td>
-                                <td>11.3%</td>
-                                <td>DeepSeek, DeepSeek v3.2</td>
-                            </tr>
-                            <tr>
-                                <td><span class="provider-badge provider-mistral">Mistral AI</span></td>
-                                <td>13</td>
-                                <td>7.7%</td>
-                                <td>Mistral</td>
-                            </tr>
-                            <tr>
-                                <td><span class="provider-badge provider-xai">xAI</span></td>
-                                <td>12</td>
-                                <td>7.1%</td>
-                                <td>Grok</td>
-                            </tr>
-                            <tr>
-                                <td><span class="provider-badge" style="background: rgba(139, 92, 246, 0.2); color: #a78bfa;">Alibaba</span></td>
-                                <td>10</td>
-                                <td>6.0%</td>
-                                <td>Qwen</td>
-                            </tr>
-                            <tr>
-                                <td><span class="provider-badge" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8;">Moonshot AI</span></td>
-                                <td>10</td>
-                                <td>6.0%</td>
-                                <td>Kimi K2</td>
+                                <td colspan="4" class="theme-meta">Loading…</td>
                             </tr>
                         </tbody>
                     </table>
@@ -441,75 +372,10 @@
             <!-- Detailed LLM Analysis -->
             <section class="insight-section">
                 <h3>LLM Performance Analysis (Based on Student Reports)</h3>
-                <div class="llm-comparison-grid">
+                <p class="theme-meta">Automatically summarized from student writeups via keyword heuristics. Treat as qualitative signals, not a benchmark.</p>
+                <div class="llm-comparison-grid" id="llm-analysis-grid">
                     <div class="llm-detail-card">
-                        <h4>Mistral <span class="count">13 submissions</span></h4>
-                        <p>High accuracy (99%) reported on some assignments with minimal errors. Zero arithmetic errors on well-structured problems. Tends to initially act as pedagogical tutor rather than solution generator.</p>
-                        <div class="strengths">
-                            <span class="tag">High Accuracy</span>
-                            <span class="tag">No Arithmetic Errors</span>
-                            <span class="tag">Pedagogical</span>
-                        </div>
-                    </div>
-                    <div class="llm-detail-card">
-                        <h4>Gemini Pro 3 <span class="count">13 submissions</span></h4>
-                        <p>Consistently includes intermediate steps that other LLMs skip. Good at geometric interpretations. "Thinking" mode delivers interpretations clearly on first try.</p>
-                        <div class="strengths">
-                            <span class="tag">Detailed Steps</span>
-                            <span class="tag">Geometric Intuition</span>
-                            <span class="tag">Thinking Mode</span>
-                        </div>
-                    </div>
-                    <div class="llm-detail-card">
-                        <h4>Grok <span class="count">12 submissions</span></h4>
-                        <p>Strong performance on mathematical derivations. Popular for HW0 and HW5. Good reasoning capabilities with clear explanations.</p>
-                        <div class="strengths">
-                            <span class="tag">Math Derivations</span>
-                            <span class="tag">Clear Explanations</span>
-                        </div>
-                    </div>
-                    <div class="llm-detail-card">
-                        <h4>GPT-5.1 Thinking <span class="count">11 submissions</span></h4>
-                        <p>Impressive one-shot capabilities on many problems. Extended thinking mode shows clearer reasoning chains. Useful as a "pocket-TA" but requires fundamental understanding to verify outputs.</p>
-                        <div class="strengths">
-                            <span class="tag">One-Shot</span>
-                            <span class="tag">Extended Thinking</span>
-                            <span class="tag">Verification Needed</span>
-                        </div>
-                    </div>
-                    <div class="llm-detail-card">
-                        <h4>Claude Opus 4.5 <span class="count">10 submissions</span></h4>
-                        <p>Excellent at algebraic reasoning and optimization problems. Extended thinking mode produces rigorous, paper-like solutions. Strong on mechanical reasoning, weaker on conceptual intuition without prompting.</p>
-                        <div class="strengths">
-                            <span class="tag">Algebraic Reasoning</span>
-                            <span class="tag">Rigorous</span>
-                            <span class="tag">Paper-like Output</span>
-                        </div>
-                    </div>
-                    <div class="llm-detail-card">
-                        <h4>DeepSeek v3.2 <span class="count">9 submissions</span></h4>
-                        <p>Strong grasp of linear algebra and calculus. Good chain-of-thought reasoning. Interesting finding: reasoning in Chinese accelerates response by 2.5x and saves 2/3 tokens!</p>
-                        <div class="strengths">
-                            <span class="tag">Linear Algebra</span>
-                            <span class="tag">Chain-of-Thought</span>
-                            <span class="tag">Multilingual</span>
-                        </div>
-                    </div>
-                    <div class="llm-detail-card">
-                        <h4>Qwen <span class="count">10 submissions</span></h4>
-                        <p>Strong performance on mathematical derivations. Good at structured problems with clear steps. Competitive with Western models on technical content.</p>
-                        <div class="strengths">
-                            <span class="tag">Math Focus</span>
-                            <span class="tag">Structured Problems</span>
-                        </div>
-                    </div>
-                    <div class="llm-detail-card">
-                        <h4>Kimi K2 <span class="count">7 submissions</span></h4>
-                        <p>Strong performance on mathematical derivations. Good at structured problems with clear steps. Sometimes needs explicit prompting for detailed explanations.</p>
-                        <div class="strengths">
-                            <span class="tag">Math Derivations</span>
-                            <span class="tag">Needs Prompting</span>
-                        </div>
+                        <p class="theme-meta">Loading…</p>
                     </div>
                 </div>
             </section>
@@ -518,25 +384,17 @@
             <section class="insight-section">
                 <h3>Key Findings from Student Submissions</h3>
                 <div class="chart-container" style="padding: 2rem;">
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                    <div class="themes-grid">
                         <div>
                             <h4 style="color: #4ade80; margin-bottom: 1rem;">Common Strengths</h4>
-                            <ul style="color: var(--text-muted); line-height: 1.8;">
-                                <li>Strong performance on linear algebra and matrix calculus</li>
-                                <li>Good at following step-by-step derivation patterns</li>
-                                <li>Effective at explaining well-known results</li>
-                                <li>"Thinking" modes improve reasoning transparency</li>
-                                <li>Most can one-shot structured problems</li>
+                            <ul id="common-strengths">
+                                <li class="theme-meta">Loading…</li>
                             </ul>
                         </div>
                         <div>
                             <h4 style="color: #f87171; margin-bottom: 1rem;">Common Weaknesses</h4>
-                            <ul style="color: var(--text-muted); line-height: 1.8;">
-                                <li>Subtle math errors: missing constants, wrong simplifications</li>
-                                <li>PDF/image parsing issues with mathematical notation</li>
-                                <li>Hallucinate intermediate steps when unsure</li>
-                                <li>Context length causes reasoning compression</li>
-                                <li>Visual analysis often based on guessing</li>
+                            <ul id="common-weaknesses">
+                                <li class="theme-meta">Loading…</li>
                             </ul>
                         </div>
                     </div>
@@ -568,8 +426,9 @@
         </footer>
     </div>
 
-    <script src="theme.js"></script>
-    <script src="insights_palette.js"></script>
-    <script src="insights.js"></script>
+    <script src="theme.js?v=2"></script>
+    <script src="data.js?v=2"></script>
+    <script src="insights_palette.js?v=2"></script>
+    <script src="insights.js?v=2"></script>
 </body>
 </html>

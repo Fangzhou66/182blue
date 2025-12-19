@@ -33,20 +33,21 @@ This project creates a searchable website documenting student submissions for **
 9. **Default Content** - Filter sections show all submissions by default
 10. **Error Handling** - Graceful error messages if data fails to load
 11. **IIFE Pattern** - Proper JavaScript encapsulation
+12. **Cross-LLM Theme Summaries** - Insights page extracts common strengths/weaknesses per model from writeups (heuristic keyword analysis)
 
 ### Accessibility (WCAG 2.1)
-12. **Skip Link** - Keyboard users can skip to main content
-13. **Focus Styles** - Visible focus indicators on all interactive elements
-14. **ARIA Labels** - Proper labeling for screen readers
-15. **Semantic HTML** - Proper heading hierarchy and landmarks
-16. **Visually Hidden** - Screen reader text for context
+13. **Skip Link** - Keyboard users can skip to main content
+14. **Focus Styles** - Visible focus indicators on all interactive elements
+15. **ARIA Labels** - Proper labeling for screen readers
+16. **Semantic HTML** - Proper heading hierarchy and landmarks
+17. **Visually Hidden** - Screen reader text for context
 
 ### CSS & UX Improvements
-17. **Dark Mode** - Automatic via `prefers-color-scheme`
-18. **Print Styles** - Clean printing without navigation
-19. **Removed Duplicate Selector** - CSS code quality fix
-20. **Focus-Visible** - Only show focus ring for keyboard navigation
-21. **Streamlined Filters** - Browse page shows only HW + LLM filters (advanced sort under "More")
+18. **Dark Mode** - Automatic via `prefers-color-scheme`
+19. **Print Styles** - Clean printing without navigation
+20. **Removed Duplicate Selector** - CSS code quality fix
+21. **Focus-Visible** - Only show focus ring for keyboard navigation
+22. **Streamlined Filters** - Browse page shows only HW + LLM filters (advanced sort under "More")
 
 ## What Was Done by AI (Claude Code with Opus 4.5)
 
@@ -132,7 +133,7 @@ website/
 ## How to Run
 
 ```bash
-cd /mnt/sky-gh200/fangzhou/ExtraCredit/website
+cd website
 python -m http.server 8080
 # Open http://localhost:8080 in browser
 ```
@@ -140,7 +141,7 @@ python -m http.server 8080
 ## How to Regenerate Data
 
 ```bash
-cd /mnt/sky-gh200/fangzhou/ExtraCredit
+uv sync
 uv run python process_threads.py
 ```
 
