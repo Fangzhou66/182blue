@@ -8,7 +8,6 @@
     let filteredThreads = [];
     let currentFilters = {
         search: '',
-        provider: 'all',
         llm: 'all',
         hw: 'all',
         sort: 'date-desc'
@@ -34,35 +33,20 @@
     }
 
     function populateFilters() {
-        const providerSelect = document.getElementById('providerFilter');
         const llmSelect = document.getElementById('llmFilter');
         const hwSelect = document.getElementById('hwFilter');
 
         // Get counts for each filter
-        const providerCounts = {};
+        const llmCounts = {};
         const hwCounts = {};
         participationData.threads.forEach(t => {
-            const provider = t.provider || 'Other';
-            providerCounts[provider] = (providerCounts[provider] || 0) + 1;
+            llmCounts[t.llm_used] = (llmCounts[t.llm_used] || 0) + 1;
             hwCounts[t.homework] = (hwCounts[t.homework] || 0) + 1;
         });
 
-        // Populate providers with counts, sorted by count
-        if (providerSelect && typeof uniqueProviders !== 'undefined') {
-            const sortedProviders = [...uniqueProviders].sort((a, b) =>
-                (providerCounts[b] || 0) - (providerCounts[a] || 0)
-            );
-            sortedProviders.forEach(provider => {
-                const opt = document.createElement('option');
-                opt.value = provider;
-                opt.textContent = `${provider} (${providerCounts[provider] || 0})`;
-                providerSelect.appendChild(opt);
-            });
-        }
-
         // Populate LLMs
         if (llmSelect) {
-            updateLLMOptions();
+            populateLLMOptions(llmCounts);
         }
 
         // Populate homework with counts
@@ -76,7 +60,7 @@
         }
     }
 
-    function updateLLMOptions() {
+    function populateLLMOptions(llmCounts) {
         const llmSelect = document.getElementById('llmFilter');
         if (!llmSelect) return;
 
@@ -85,23 +69,9 @@
         // Clear existing options except "All"
         llmSelect.innerHTML = '<option value="all">All LLMs</option>';
 
-        // Get LLM counts based on current provider filter
-        const llmCounts = {};
-        participationData.threads.forEach(t => {
-            if (currentFilters.provider === 'all' || t.provider === currentFilters.provider) {
-                llmCounts[t.llm_used] = (llmCounts[t.llm_used] || 0) + 1;
-            }
-        });
-
-        // Filter LLMs based on selected provider
-        let llmsToShow = uniqueLLMs;
-        if (currentFilters.provider !== 'all') {
-            llmsToShow = uniqueLLMs.filter(llm => llmCounts[llm] > 0);
-        }
-
-        // Sort by count
-        llmsToShow = [...llmsToShow].sort((a, b) =>
-            (llmCounts[b] || 0) - (llmCounts[a] || 0)
+        // Sort by count (desc), then name (asc)
+        const llmsToShow = [...uniqueLLMs].sort((a, b) =>
+            (llmCounts[b] || 0) - (llmCounts[a] || 0) || a.localeCompare(b)
         );
 
         llmsToShow.forEach(llm => {
@@ -122,13 +92,6 @@
 
     function parseUrlParams() {
         const params = new URLSearchParams(window.location.search);
-
-        if (params.has('provider')) {
-            currentFilters.provider = params.get('provider');
-            const providerSelect = document.getElementById('providerFilter');
-            if (providerSelect) providerSelect.value = currentFilters.provider;
-            updateLLMOptions();
-        }
 
         if (params.has('llm')) {
             currentFilters.llm = params.get('llm');
@@ -153,7 +116,6 @@
 
     function setupEventListeners() {
         const searchInput = document.getElementById('searchInput');
-        const providerFilter = document.getElementById('providerFilter');
         const llmFilter = document.getElementById('llmFilter');
         const hwFilter = document.getElementById('hwFilter');
         const sortSelect = document.getElementById('sortSelect');
@@ -165,16 +127,6 @@
                 currentPage = 1;
                 applyFiltersAndRender();
             }, 300));
-        }
-
-        if (providerFilter) {
-            providerFilter.addEventListener('change', function() {
-                currentFilters.provider = this.value;
-                currentFilters.llm = 'all'; // Reset LLM when provider changes
-                updateLLMOptions();
-                currentPage = 1;
-                applyFiltersAndRender();
-            });
         }
 
         if (llmFilter) {
@@ -242,11 +194,6 @@
                 if (!matches) return false;
             }
 
-            // Provider filter
-            if (currentFilters.provider !== 'all' && thread.provider !== currentFilters.provider) {
-                return false;
-            }
-
             // LLM filter
             if (currentFilters.llm !== 'all' && thread.llm_used !== currentFilters.llm) {
                 return false;
@@ -295,7 +242,6 @@
     function updateUrl() {
         const params = new URLSearchParams();
         if (currentFilters.search) params.set('search', currentFilters.search);
-        if (currentFilters.provider !== 'all') params.set('provider', currentFilters.provider);
         if (currentFilters.llm !== 'all') params.set('llm', currentFilters.llm);
         if (currentFilters.hw !== 'all') params.set('hw', currentFilters.hw);
 
@@ -310,7 +256,6 @@
 
         // Update active filters and clear button
         const hasFilters = currentFilters.search ||
-            currentFilters.provider !== 'all' ||
             currentFilters.llm !== 'all' ||
             currentFilters.hw !== 'all';
 
@@ -341,13 +286,6 @@
             </span>`;
         }
 
-        if (currentFilters.provider !== 'all') {
-            html += `<span class="filter-chip filter-chip-provider" data-filter="provider">
-                ${escapeHtml(currentFilters.provider)}
-                <button class="chip-remove" data-type="provider">&times;</button>
-            </span>`;
-        }
-
         if (currentFilters.llm !== 'all') {
             html += `<span class="filter-chip filter-chip-llm" data-filter="llm">
                 ${escapeHtml(currentFilters.llm)}
@@ -372,10 +310,6 @@
                 if (type === 'search') {
                     currentFilters.search = '';
                     document.getElementById('searchInput').value = '';
-                } else if (type === 'provider') {
-                    currentFilters.provider = 'all';
-                    document.getElementById('providerFilter').value = 'all';
-                    updateLLMOptions();
                 } else if (type === 'llm') {
                     currentFilters.llm = 'all';
                     document.getElementById('llmFilter').value = 'all';
@@ -499,7 +433,6 @@
     function clearAllFilters() {
         currentFilters = {
             search: '',
-            provider: 'all',
             llm: 'all',
             hw: 'all',
             sort: 'date-desc'
@@ -507,12 +440,10 @@
         currentPage = 1;
 
         document.getElementById('searchInput').value = '';
-        document.getElementById('providerFilter').value = 'all';
         document.getElementById('llmFilter').value = 'all';
         document.getElementById('hwFilter').value = 'all';
         document.getElementById('sortSelect').value = 'date-desc';
 
-        updateLLMOptions();
         applyFiltersAndRender();
     }
 

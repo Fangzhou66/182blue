@@ -58,12 +58,6 @@
                 </div>
                 <div class="control-row">
                     <div class="filter-group">
-                        <label for="providerFilter">Provider:</label>
-                        <select id="providerFilter" class="filter-select">
-                            <option value="all">All Providers</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
                         <label for="llmFilter">LLM:</label>
                         <select id="llmFilter" class="filter-select">
                             <option value="all">All LLMs</option>
@@ -75,16 +69,21 @@
                             <option value="all">All Homework</option>
                         </select>
                     </div>
-                    <div class="filter-group">
-                        <label for="sortSelect">Sort:</label>
-                        <select id="sortSelect" class="filter-select">
-                            <option value="date-desc">Newest First</option>
-                            <option value="date-asc">Oldest First</option>
-                            <option value="views-desc">Most Views</option>
-                            <option value="author-asc">Author (A-Z)</option>
-                            <option value="llm-asc">LLM (A-Z)</option>
-                        </select>
-                    </div>
+                    <details class="advanced-controls">
+                        <summary class="advanced-controls-summary">More</summary>
+                        <div class="advanced-controls-body">
+                            <div class="filter-group">
+                                <label for="sortSelect">Sort:</label>
+                                <select id="sortSelect" class="filter-select">
+                                    <option value="date-desc">Newest First</option>
+                                    <option value="date-asc">Oldest First</option>
+                                    <option value="views-desc">Most Views</option>
+                                    <option value="author-asc">Author (A-Z)</option>
+                                    <option value="llm-asc">LLM (A-Z)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </details>
                 </div>
             </div>
 

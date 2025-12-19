@@ -12,7 +12,6 @@
 
     function initHomePage() {
         updateStats();
-        renderProviderTags();
         renderLLMTags();
         renderHWTags();
         renderRecentSubmissions();
@@ -59,27 +58,6 @@
                 el.textContent = Math.floor(current);
             }
         }, 16);
-    }
-
-    function renderProviderTags() {
-        const container = document.getElementById('provider-tags');
-        if (!container) return;
-
-        // Get counts and sort by popularity
-        const counts = {};
-        participationData.threads.forEach(t => {
-            const provider = t.provider || 'Other';
-            counts[provider] = (counts[provider] || 0) + 1;
-        });
-
-        const sorted = Object.entries(counts)
-            .sort((a, b) => b[1] - a[1]);
-
-        container.innerHTML = sorted.map(([provider, count], index) =>
-            `<a href="browse.html?provider=${encodeURIComponent(provider)}" class="tag-link" style="animation-delay: ${index * 0.05}s">
-                ${escapeHtml(provider)} <span class="tag-count">${count}</span>
-            </a>`
-        ).join('');
     }
 
     function renderLLMTags() {

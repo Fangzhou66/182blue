@@ -46,6 +46,7 @@ This project creates a searchable website documenting student submissions for **
 18. **Print Styles** - Clean printing without navigation
 19. **Removed Duplicate Selector** - CSS code quality fix
 20. **Focus-Visible** - Only show focus ring for keyboard navigation
+21. **Streamlined Filters** - Browse page shows only HW + LLM filters (advanced sort under "More")
 
 ## What Was Done by AI (Claude Code with Opus 4.5)
 
@@ -148,7 +149,7 @@ uv run python process_threads.py
 1. **Search**: Type "Claude" in search box → shows Claude submissions
 2. **LLM Filter**: Click "DeepSeek" → filters to DeepSeek submissions
 3. **HW Filter**: Click "HW8" → filters to HW8 submissions
-4. **Sorting**: Select "Most Views" → reorders by view count
+4. **Sorting**: Open "More" → select "Most Views" → reorders by view count
 5. **Direct Link**: Add `?thread=7451901` to URL → opens modal
 6. **Dark Mode**: Set OS to dark mode → colors adjust
 7. **Keyboard**: Tab through page → focus ring visible
